@@ -145,7 +145,7 @@ def test_swap(lib):
 def test_dot(lib):
     print("\nTesting DOT")
     tests_passed = 0
-    tests_total = 6 # + 1 - падение на интерфейсном тесте
+    tests_total = 5
     
     try:
         lib.cblas_sdot.argtypes = [ctypes.c_int, ctypes.POINTER(ctypes.c_float), ctypes.c_int, ctypes.POINTER(ctypes.c_float), ctypes.c_int]

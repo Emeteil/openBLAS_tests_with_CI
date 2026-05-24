@@ -158,5 +158,5 @@ int main()
     std::cout << "\nDOUBLE (Двойная точность)" << std::endl;
     run_performance_test<double>(n_size);
 
-    return 0;
+    return 1; // 0 -> 1 падение на тесте производительности
 }
