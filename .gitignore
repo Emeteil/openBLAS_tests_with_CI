@@ -1,0 +1,7 @@
+/build
+/broken_lib
+build_broken_lib.sh
+__pycache__/
+*.pyc
+.vscode/
+.idea/
