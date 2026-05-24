@@ -148,7 +148,7 @@ void run_performance_test(int N)
 
 int main()
 {
-    int n_size = 2080 // удалена ; - падение во время компиляции
+    int n_size = 2080;
     
     std::cout << "Размер матрицы: " << n_size << "x" << n_size << std::endl;
     
