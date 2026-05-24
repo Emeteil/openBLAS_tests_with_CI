@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake gfortran build-essential python3 python3-pip
+          python3 -m pip install --upgrade pip
+          python3 -m pip install numpy
+
+      - name: Configure (CMake)
+        run: cmake -B build -S . -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build -j $(nproc)
+
+      - name: Run interface tests (tests.py)
+        run: python3 tests.py
+
+      - name: Run performance test (main)
+        run: ./build/main

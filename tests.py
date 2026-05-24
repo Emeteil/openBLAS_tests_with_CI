@@ -1,5 +1,5 @@
 import numpy as np
-import ctypes, os
+import ctypes, os, sys
 
 def test_axpy(lib):
     print("\nTesting AXPY")
@@ -302,27 +302,31 @@ if __name__ == "__main__":
     try:
         lib = ctypes.CDLL(os.path.abspath("build/OpenBLAS/lib/libopenblas.so"))
         # lib = ctypes.CDLL(os.path.abspath("build/broken_libopenblas.so"))
-        
-        all_passed = 0
-        all_total = 0
-        
-        test_funcs = [
-            test_axpy,
-            test_scal,
-            test_copy,
-            test_swap,
-            test_dot,
-            test_nrm2,
-            test_asum,
-            test_amax,
-            test_rot
-        ]
-        
-        for func in test_funcs:
-            passed, total = func(lib)
-            all_passed += passed
-            all_total += total
-            
-        print(f"\nTotal Tests Passed: {all_passed} / {all_total}")
     except Exception as e:
-        print("Error:", e)
+        print("Error loading library:", e)
+        sys.exit(1)
+
+    all_passed = 0
+    all_total = 0
+
+    test_funcs = [
+        test_axpy,
+        test_scal,
+        test_copy,
+        test_swap,
+        test_dot,
+        test_nrm2,
+        test_asum,
+        test_amax,
+        test_rot
+    ]
+
+    for func in test_funcs:
+        passed, total = func(lib)
+        all_passed += passed
+        all_total += total
+
+    print(f"\nTotal Tests Passed: {all_passed} / {all_total}")
+
+    if all_passed < all_total:
+        sys.exit(1)
