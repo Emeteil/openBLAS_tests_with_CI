@@ -148,7 +148,7 @@ void run_performance_test(int N)
 
 int main()
 {
-    int n_size = 2080;
+    int n_size = 2080 // удалена ; - падение во время компиляции
     
     std::cout << "Размер матрицы: " << n_size << "x" << n_size << std::endl;
     
@@ -158,5 +158,5 @@ int main()
     std::cout << "\nDOUBLE (Двойная точность)" << std::endl;
     run_performance_test<double>(n_size);
 
-    return 1; // 0 -> 1 падение на тесте производительности
+    return 0;
 }
